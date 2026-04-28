@@ -8,6 +8,8 @@
 
 **LawBot+** 是一个以法律咨询为核心场景的 AI Agent 应用，采用 **多智能体协作 + 混合 RAG 检索 + 人机协同审核 (HITL)** 的技术架构。系统由 FastAPI 后端（LangGraph 工作流引擎 + MCP 工具协议）、Next.js 前端以及 Docker 中间件组成，可一键部署至生产环境。
 
+![系统架构图](./docs/images/architecture.png)
+
 ---
 
 ## 技术栈
@@ -145,6 +147,16 @@ flowchart TB
 **MCP 协议** — 统一封装法律工具（检索、时效计算、赔偿计算、文书生成），通过 FastMCP 暴露为标准化工具，供 LangGraph 动态选择调用。
 
 ---
+
+## 项目界面展示
+
+![界面展示-1](./docs/images/screenshot-1.png)
+
+![界面展示-2](./docs/images/screenshot-2.png)
+
+![界面展示-3](./docs/images/screenshot-3.png)
+
+![界面展示-4](./docs/images/screenshot-4.png)
 
 ## 一键本地启动
 
