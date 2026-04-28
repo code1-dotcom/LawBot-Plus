@@ -1,0 +1,52 @@
+# 🔑 敏感配置（绝对禁止提交）
+.env
+.env.*
+!env.example
+
+# 🐍 Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+venv/
+.venv/
+env/
+env.bak/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# 🤖 模型与权重（单文件 >50MB 一律忽略，改用 HuggingFace/ModelScope 链接）
+*.bin
+*.gguf
+*.pth
+*.safetensors
+models/
+downloads/
+
+# 📦 中间数据与日志
+src/rag/json/
+src/rag/processed/
+*.log
+data/*.csv
+data/*.json
+
+# 🌐 Next.js / Node
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/.env.local
+
+# 🐳 Docker & CI
+.dockerignore
+docker-compose.override.yml
+
+# 🛠️ IDE & OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# ✅ 保留示例文件
+!src/rag/json/.gitkeep
+!frontend/.env.example

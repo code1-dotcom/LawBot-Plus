@@ -1,0 +1,64 @@
+# LawBot+ Docker Compose Configuration
+# PostgreSQL + Redis for production environment
+# Usage: docker-compose up -d
+
+services:
+  # ============== PostgreSQL ==============
+  postgres:
+    image: pgvector/pgvector:pg16  # 包含pgvector扩展的PostgreSQL 16
+    container_name: lawbot-postgres
+    environment:
+      POSTGRES_DB: lawbot
+      POSTGRES_USER: lawbot
+      POSTGRES_PASSWORD: lawbot_secure_pass_2024
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-scripts:/docker-entrypoint-initdb.d  # 初始化脚本
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U lawbot -d lawbot"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s  # 启动宽限期，避免误判
+    networks:
+      - lawbot-network
+    restart: unless-stopped
+
+  # ============== Redis ==============
+  redis:
+    image: redis:7-alpine
+    container_name: lawbot-redis
+    command: >
+      redis-server
+      --appendonly yes
+      --requirepass redis_password_2024
+      --maxmemory 256mb
+      --maxmemory-policy allkeys-lru
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "redis_password_2024", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
+    networks:
+      - lawbot-network
+    restart: unless-stopped
+
+# ============== Volumes ==============
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+
+# ============== Networks ==============
+networks:
+  lawbot-network:
+    driver: bridge
