@@ -181,7 +181,7 @@ flowchart TB
 
 ![界面展示-2](./docs/images/screenshot-2.png)
 
-> 
+> 接收用户问题 --> 查询改写  --> 分词查询检索
 
 ---
 
@@ -191,7 +191,7 @@ flowchart TB
 
 ![image-20260429085019612](./docs/images/image-20260429085019612.png)
 
-> 
+> 低于额定相关度的内容 --> 触发安全审查
 
 ---
 
